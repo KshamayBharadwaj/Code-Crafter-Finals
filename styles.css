@@ -1,0 +1,173 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: #111111;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100px;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    font-family: "Neue Montreal";
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 100px;
+    color: #fff;
+    z-index: 10;
+}
+
+.site-menu {
+    display: flex;
+}
+
+.menu-item {
+    margin-left: 60px;
+}
+
+.container {
+    position: absolute;
+    top: 120vh;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.2);
+    width: 50vw;
+    text-align: center;
+    z-index: 1;
+}
+
+.hero-img {
+    position: relative;
+    z-index: 2;
+    top: 50px; /* Moves the drone lower relative to the text */
+    animation: float 3s infinite ease-in-out;
+    animation-delay: 5s;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+.hero-img img {
+    width: 75%;
+}
+
+.container p.title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) translateY(-200px); /* Start off-screen above */
+    font-family: "Monument Extended", sans-serif;
+    font-size: 5vw;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #fff;
+    z-index: 1;
+    opacity: 1; /* Keep visible initially */
+    white-space: nowrap;
+}
+
+.title .letter {
+    display: inline-block;
+    opacity: 0; /* Letters start invisible for animation */
+}
+
+.prev-imgs {
+    position: fixed;
+    bottom: 5em;
+    right: 30px;
+    display: flex;
+    z-index: 3;
+}
+
+.prev-img {
+    width: 100px;
+    height: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 10px;
+}
+
+.prev-1 { background: url("./images/prev-1.jpg") no-repeat 50% 50%; background-size: cover; }
+.prev-2 { background: url("./images/prev-2.jpg") no-repeat 50% 50%; background-size: cover; }
+.prev-3 { background: url("./images/prev-3.jpg") no-repeat 50% 50%; background-size: cover; }
+
+.buy-now-cta {
+    position: fixed;
+    bottom: 4em;
+    left: 50%;
+    transform: translate(-50%);
+    width: 400px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+}
+
+.buy-now-cta button {
+    background: rgb(28,28,28);
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    font-family: "Neue Montreal";
+    text-transform: uppercase;
+    padding: 20px 40px;
+    font-size: 12px;
+}
+
+.info {
+    position: fixed;
+    bottom: 5em;
+    left: 40px;
+    width: 400px;
+    z-index: 3;
+}
+
+.info p {
+    color: #5e5e5e;
+    font-family: "Neue Montreal";
+    text-transform: uppercase;
+    padding: 10px 20px;
+    font-size: 12px;
+}
+
+.marquee {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 0.4em 0;
+    white-space: nowrap;
+    overflow: hidden;
+    background: #000;
+    display: flex;
+    align-items: center;
+    z-index: 4;
+}
+
+.marquee span {
+    font-family: "Monument Extended";
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #fff;
+    font-size: 2em;
+    animation: marquee-animation 80s linear infinite;
+}
+
+@keyframes marquee-animation {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+}
