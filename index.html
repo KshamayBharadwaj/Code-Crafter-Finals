@@ -18,14 +18,18 @@
     </div>
 
     <div class="container">
-        <p class="title">reach the fullest</p>
+        <p class="title">
+            <span class="word">reach</span>
+            <span class="word">the</span>
+            <span class="word">fullest</span>
+        </p>
         <div class="hero-img">
             <img src="assets/drone-main.png" alt="Drone">
         </div>
     </div>
 
     <div class="info">
-        <p class="info-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <p class="info-text">Experience unparalleled aerial photography with our next-generation drone. Featuring advanced stabilization technology, seamless controls, and impressive flight time for both professionals and enthusiasts.</p>
     </div>
     <div class="buy-now-cta">
         <button>Buy Now</button>
@@ -41,61 +45,102 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
     <script>
-        // Wrap each letter in a span for animation
-        let textWrapper = document.querySelector('.container p.title');
-        if (textWrapper) {
-            textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+        // Wrap each letter in spans for animation
+        let words = document.querySelectorAll('.title .word');
+        
+        if (words.length > 0) {
+            words.forEach(word => {
+                word.innerHTML = word.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+            });
         } else {
-            console.error("Title element not found!");
+            console.error("Title words not found!");
         }
 
-        // Animate the container (drone and text together)
-        TweenMax.to(".container", 2, {
-            top: "50vh",
-            ease: "Expo.easeInOut",
-            delay: 0.5
-        });
+        // Animation timeline
+        let mainTimeline = () => {
+            // 1. First move the container into view
+            TweenMax.to(".container", 2, {
+                top: "50vh",
+                ease: "Expo.easeInOut",
+                delay: 0.5
+            });
 
-        TweenMax.to(".container", 2, {
-            scale: 1,
-            top: "25vh",
-            ease: "Expo.easeInOut",
-            delay: 3,
-            onComplete: function() {
-                console.log("Container animation complete, starting text animation");
-                anime.timeline({
-                    targets: '.title .letter',
-                    translateY: [-200, 0], // Slide in from above
-                    opacity: [0, 1],       // Fade in
-                    easing: "easeOutExpo",
-                    duration: 1500,
-                    delay: (el, i) => 50 * i
-                });
-            }
-        });
+            // 2. Then scale it and position it higher on the page
+            TweenMax.to(".container", 2, {
+                scale: 1,
+                top: "25vh",
+                ease: "Expo.easeInOut",
+                delay: 3,
+                onComplete: startTextAnimation
+            });
 
-        // Animate navbar
-        TweenMax.staggerFrom(".navbar > div", 1.5, {
-            opacity: 0,
-            y: -100,
-            ease: "Expo.easeInOut",
-            delay: 2.5
-        }, 0.08);
+            // 3. Animate navbar elements
+            TweenMax.staggerFrom(".navbar > div", 1.5, {
+                opacity: 0,
+                y: -100,
+                ease: "Expo.easeInOut",
+                delay: 2.5
+            }, 0.08);
 
-        TweenMax.staggerFrom(".site-menu > div", 1, {
-            opacity: 0,
-            y: -100,
-            ease: "Expo.easeInOut",
-            delay: 2.5
-        }, 0.2);
+            TweenMax.staggerFrom(".site-menu > div", 1, {
+                opacity: 0,
+                y: -100,
+                ease: "Expo.easeInOut",
+                delay: 2.5
+            }, 0.2);
 
-        // Animate other elements
-        TweenMax.staggerFrom(".info, .buy-now-cta, .prev-imgs > div, .marquee", 1, {
-            opacity: 0,
-            y: -100,
-            ease: "Power2.easeInOut",
-            delay: 4
-        }, 0.1);
+            // 4. Animate other elements
+            TweenMax.staggerFrom(".info, .buy-now-cta, .prev-imgs > div, .marquee", 1, {
+                opacity: 0,
+                y: -100,
+                ease: "Power2.easeInOut",
+                delay: 4
+            }, 0.1);
+        };
+
+        function startTextAnimation() {
+            console.log("Container animation complete, starting text animation");
+            
+            // Create a more dramatic text reveal animation
+            anime.timeline({
+                easing: "easeOutExpo"
+            })
+            .add({
+                targets: '.letter',
+                scale: [0, 1],
+                opacity: [0, 0.9],
+                translateZ: 0,
+                duration: 1500,
+                delay: (el, i) => 70 * i
+            })
+            .add({
+                targets: '.hero-img',
+                scale: [0.9, 1],
+                opacity: [0.8, 1],
+                translateZ: 0,
+                duration: 1000,
+                easing: "easeOutElastic(1, .8)"
+            }, '-=1000'); // Overlap with text animation
+
+            // Enhanced floating animation
+            TweenMax.to(".hero-img", 1.5, {
+                y: -15,
+                repeat: -1,
+                yoyo: true,
+                ease: "Power1.easeInOut"
+            });
+            
+            // Add subtle rotation to drone
+            TweenMax.to(".hero-img", 4, {
+                rotationZ: 3,
+                repeat: -1,
+                yoyo: true,
+                ease: "Power0.easeNone"
+            });
+        }
+
+        // Start the animation sequence
+        window.addEventListener('DOMContentLoaded', mainTimeline);
     </script>
 </body>
 </html>
