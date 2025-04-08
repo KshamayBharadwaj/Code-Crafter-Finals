@@ -56,6 +56,79 @@
             </div>
         </section>
 
+        
+      <!-- Product Page -->
+      <section id="product" class="section">
+        <div class="product-container">
+          <div class="wrapper">
+            <div class="left"></div>
+            <div class="right"></div>
+
+            <div class="strips">
+              <div class="left-strip"></div>
+              <div class="right-strip"></div>
+            </div>
+
+            <div class="nav">
+              <div class="logo">Product<span class="reg">&reg;</span></div>
+
+              <div class="categories">
+                <ul>
+                  <li class="hover-animate">Drones</li>
+                  <li class="hover-animate">Accessories</li>
+                  <li class="hover-animate">Support</li>
+                </ul>
+              </div>
+
+              <div class="search"><i class="fa fa-search"></i></div>
+            </div>
+
+            <div class="content">
+              <img
+                class="product-img"
+                src="assets/drone2.jpg"
+                alt="AeroX Drone"
+              />
+
+              <div class="product-text">
+                <h1 class="product-title">AeroX</h1>
+                <p class="product-subtitle">Precision. Power. Performance.</p>
+              </div>
+
+              <div class="size">
+                <ul>
+                  <span>Modes</span>
+                  <li onclick="selectMode(this)">Eco</li>
+                  <li onclick="selectMode(this)">Sport</li>
+                  <li onclick="selectMode(this)">Cinematic</li>
+                  <li onclick="selectMode(this)">Boost</li>
+                </ul>
+              </div>
+
+              <div class="dots">
+                <span class="dot" onclick="changeImage(0)"></span>
+                <span class="dot" onclick="changeImage(1)"></span>
+                <span class="dot" onclick="changeImage(2)"></span>
+                <span class="dot" onclick="changeImage(3)"></span>
+              </div>
+
+              <div class="bottomnav">
+                <div class="bottomnav-img"></div>
+                <ul>
+                  <li onclick="prevImage()">
+                    <i class="fa fa-chevron-left"></i>
+                  </li>
+                  <li onclick="nextImage()">
+                    <i class="fa fa-chevron-right"></i>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+        
         <!-- About Section -->
         <section id="about" class="section">
             <div class="section-content" data-aos="fade-up">
@@ -91,6 +164,43 @@
                 </div>
             </div>
         </section>
+        
+          <!-- Features Section -->
+      <section id="features" class="section">
+        <div class="features-container">
+          <h2 class="features-title">Drone Features</h2>
+          <div class="features-grid">
+            <div class="feature-box">
+              <h3>4K Ultra HD Camera</h3>
+              <p>
+                Capture stunning aerial shots with crystal-clear precision and
+                deep contrast.
+              </p>
+            </div>
+            <div class="feature-box">
+              <h3>GPS Smart Navigation</h3>
+              <p>
+                Fly with intelligent route planning and return-to-home
+                functionality.
+              </p>
+            </div>
+            <div class="feature-box">
+              <h3>Long Battery Life</h3>
+              <p>
+                Experience uninterrupted flight time of up to 40 minutes on a
+                single charge.
+              </p>
+            </div>
+            <div class="feature-box">
+              <h3>360° Obstacle Avoidance</h3>
+              <p>
+                Advanced sensors to avoid collisions and ensure smooth
+                navigation.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
         <!-- Pricing Section -->
         <section id="pricing" class="section">
@@ -362,16 +472,194 @@
         window.addEventListener('load', () => {
             window.scrollTo({
                 top: 1,
-                behavior: 'instant' // Immediate scroll on load
+                behavior: 'instant'
             });
-            mainTimeline(); // Start animations after scrolling to top
+            mainTimeline(); 
             animateOrbs();
         });
 
-        // Start animations (kept for DOMContentLoaded, though 'load' handles it now)
+        // Start animations 
         window.addEventListener('DOMContentLoaded', () => {
-            // No need to call mainTimeline() or animateOrbs() here anymore
         });
+
+         const productImg = document.querySelector(".product-img");
+      const dots = document.querySelectorAll(".dot");
+
+      const images = [
+        "assets/drone2.jpg",
+        "assets/drone3.jpeg",
+        "assets/drone6.jpeg",
+        "assets/drone.jpg",
+      ];
+      let currentIndex = 0;
+
+      function updateImage(index) {
+        productImg.src = images[index];
+        dots.forEach((dot, i) =>
+          dot.classList.toggle("active-dot", i === index)
+        );
+      }
+
+      function changeImage(index) {
+        currentIndex = index;
+        updateImage(currentIndex);
+      }
+
+      function prevImage() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        updateImage(currentIndex);
+      }
+
+      function nextImage() {
+        currentIndex = (currentIndex + 1) % images.length;
+        updateImage(currentIndex);
+      }
+
+      function selectMode(elem) {
+        document.querySelectorAll(".size ul li").forEach((li) => {
+          li.style.background = "transparent";
+          li.style.color = "#00e676";
+        });
+        elem.style.background = "#00e676";
+        elem.style.color = "#000";
+      }
+
+      TweenMax.from(".left", 1.6, {
+        delay: 0.6,
+        width: 0,
+        ease: Expo.easeInOut,
+      });
+
+      TweenMax.from(".right", 1.6, {
+        delay: 0.6,
+        width: 0,
+        ease: Expo.easeInOut,
+      });
+
+      TweenMax.from(".logo", 1, {
+        delay: 1,
+        opacity: 0,
+        x: -20,
+        ease: Expo.easeInOut,
+      });
+
+      TweenMax.from(".menu", 1, {
+        delay: 1.2,
+        opacity: 0,
+        x: -20,
+        ease: Expo.easeInOut,
+      });
+
+      TweenMax.from(".categories", 1, {
+        delay: 1.4,
+        opacity: 0,
+        x: -150,
+        ease: Expo.easeInOut,
+      });
+
+      TweenMax.from(".search", 0.8, {
+        delay: 1.6,
+        opacity: 0,
+        x: -20,
+        ease: Expo.easeInOut,
+      });
+
+      TweenMax.from(".size", 1, {
+        delay: 1.8,
+        opacity: 0,
+        x: -20,
+        ease: Expo.easeInOut,
+      });
+
+      TweenMax.staggerFrom(
+        ".size ul li",
+        0.3,
+        {
+          delay: 2,
+          opacity: 0,
+          y: 20,
+          ease: Power3.easeInOut,
+        },
+        0.08
+      );
+
+      TweenMax.staggerFrom(
+        ".dot",
+        1,
+        {
+          delay: 2.4,
+          opacity: 0,
+          x: 20,
+          ease: Power3.easeInOut,
+        },
+        0.08
+      );
+
+      TweenMax.from(".bottomnav", 1, {
+        delay: 2.4,
+        opacity: 0,
+        x: -20,
+        ease: Expo.easeInOut,
+      });
+
+      TweenMax.from(".bottomnav ul li:first-child", 0.5, {
+        delay: 2.4,
+        opacity: 0,
+        x: -20,
+        ease: Expo.easeInOut,
+      });
+
+      TweenMax.from(".bottomnav ul li:last-child", 0.6, {
+        delay: 2.4,
+        opacity: 0,
+        x: -20,
+        ease: Expo.easeInOut,
+      });
+
+      TweenMax.from(".product-img", 3, {
+        delay: 2,
+        opacity: 0,
+        y: 20,
+        ease: Expo.easeInOut,
+      });
+
+      TweenMax.from(".product-title", 3, {
+        delay: 2.2,
+        opacity: 0,
+        y: 50,
+        ease: Expo.easeInOut,
+      });
+
+      TweenMax.from(".product-subtitle", 3, {
+        delay: 2.4,
+        opacity: 0,
+        y: 50,
+        ease: Expo.easeInOut,
+      });
+         gsap.registerPlugin(ScrollTrigger);
+
+      gsap.from(".features-title", {
+        scrollTrigger: {
+          trigger: ".features-title",
+          start: "top 80%",
+        },
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        ease: "power2.out",
+      });
+
+      gsap.from(".feature-box", {
+        scrollTrigger: {
+          trigger: ".features-grid",
+          start: "top 80%",
+        },
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        ease: "power2.out",
+        stagger: 0.2,
+      });
     </script>
 </body>
 </html>
