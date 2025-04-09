@@ -47,3 +47,6 @@ Built by **Team Code Crafters** as part of a hackathon project.
 ## 📬 Contact
 For any queries, feel free to use the Contact section on the site.
 
+## 🎉 Acknowledgments
+This project was inspired by various resources, including tutorials from YouTube. Special thanks to content creators who share their knowledge and help developers learn.
+
